@@ -42,6 +42,7 @@ export function addMovieToList(movie) {
   };
 }
 
+// For Adding Searched Movie To The Movies List
 export function addMovieSearchResult(movie) {
   return {
     type: ADD_SEARCH_RESULT,
@@ -49,13 +50,15 @@ export function addMovieSearchResult(movie) {
   };
 }
 
+// here we need to use thunk as the return type is not an object and we need
+// dispatch inside the function. Both of this can be resolved using thunk
 export function handleMovieSearch(searchText) {
   return function (dispatch) {
+    // fetching data from API
     const url = `http://www.omdbapi.com/?apikey=3ca5df7&t=${searchText}`;
     fetch(url)
       .then((response) => response.json())
       .then((movie) => {
-        console.log("movie", movie);
         // dispatch action to save search results in store
         dispatch(addMovieSearchResult(movie));
       });

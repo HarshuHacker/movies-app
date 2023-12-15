@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { Tuple, configureStore } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
@@ -19,9 +19,13 @@ const store = configureStore({
   middleware: () => new Tuple(logger, thunk),
 });
 
+export const storeContext = createContext();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App store={store} />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <storeContext.Provider value={store}>
+    <App />
+  </storeContext.Provider>
+  // </React.StrictMode>
 );

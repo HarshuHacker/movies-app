@@ -1,5 +1,6 @@
 import React from "react";
 import { addFavorite, removeFavourite } from "../actions";
+import { storeContext } from "../index";
 
 class MovieCard extends React.Component {
   handleFavouriteClick = () => {
@@ -46,4 +47,23 @@ class MovieCard extends React.Component {
   }
 }
 
-export default MovieCard;
+class MovieCardWrapper extends React.Component {
+  render() {
+    return (
+      <storeContext.Consumer>
+        {(store) => {
+          return (
+            <MovieCard
+              store={store}
+              movie={this.props.movie}
+              dispatch={store.dispatch}
+              isFavourite={this.props.isFavourite}
+            />
+          );
+        }}
+      </storeContext.Consumer>
+    );
+  }
+}
+
+export default MovieCardWrapper;
