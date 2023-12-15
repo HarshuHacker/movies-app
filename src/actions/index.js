@@ -61,12 +61,13 @@ export function addMovieToSearchResult(movie) {
 export function handleMovieSearch(searchText) {
   return function (dispatch) {
     // fetching data from API
-    const url = `http://www.omdbapi.com/?apikey=3ca5df7&t=${searchText}`;
+    const url = `http://www.omdbapi.com/?apikey=3ca5df7&s=${searchText}`;
     fetch(url)
       .then((response) => response.json())
       .then((movie) => {
+        console.log(movie.Search);
         // dispatch action to save search results in store
-        dispatch(addMovieToSearchResult(movie));
+        dispatch(addMovieToSearchResult(movie.Search));
       });
   };
 }

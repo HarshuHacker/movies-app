@@ -7,6 +7,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #f1f1f1;
 }
+.main {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.main .tabs {
+  display: flex;
+  font-size: 20px;
+}
+.main .tabs .tab {
+  background: #fff;
+  padding: 10px;
+  margin-right: 13px;
+  border-radius: 3px;
+  border: 1px solid #e1e1e1;
+}
+.active-tabs {
+  background: #2185d0 !important;
+  color: white;
+}
+.main .tabs .tab:hover {
+  cursor: pointer;
+  background: #e1e1e1;
+}
 .nav {
   background: black;
   height: 70px;
@@ -88,32 +114,6 @@ body {
   border-top-right-radius: 4px;
   position: relative;
   top: -1px;
-}
-.main {
-  width: 70%;
-  margin: 0 auto;
-  margin-top: 30px;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-.main .tabs {
-  display: flex;
-  font-size: 20px;
-}
-.main .tabs .tab {
-  background: #fff;
-  padding: 10px;
-  margin-right: 13px;
-  border-radius: 3px;
-  border: 1px solid #e1e1e1;
-}
-.active-tabs {
-  background: #2185d0 !important;
-  color: white;
-}
-.main .tabs .tab:hover {
-  cursor: pointer;
-  background: #e1e1e1;
 }
 .movie-card {
   background: #fff;
