@@ -55,7 +55,6 @@ export function movies(state = initialMoviesState, action) {
       return {
         ...state,
         list: [action.movie, ...state.list],
-        
       };
 
     default:
@@ -80,7 +79,6 @@ export function search(state = initialSearchState, action) {
 
     // Add Searched Movie To The Movies List
     case ADD_MOVIE_TO_SEARCH_RESULT:
-      console.log(action.movie)
       return {
         ...state,
         searchResult: action.movie, // The Search Movie

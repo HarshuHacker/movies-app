@@ -8,6 +8,15 @@ import App from "./Components/App";
 import reducer from "./reducers/index";
 import { Provider } from "react-redux";
 
+
+// Middleware
+// const logger = (store) => (next) => (action) => {
+//   if (typeof action !== "function") {
+//     console.log("ACTION_TYPE = ", action.type, store);
+//   }
+//   next(action);
+// };
+
 // Store
 const store = configureStore({
   reducer,
@@ -22,11 +31,3 @@ root.render(
   </Provider>
   </React.StrictMode>
 );
-
-// Middleware
-// const logger = (store) => (next) => (action) => {
-//   if (typeof action !== "function") {
-//     console.log("ACTION_TYPE = ", action.type, store);
-//   }
-//   next(action);
-// };

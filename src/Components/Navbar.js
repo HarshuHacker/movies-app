@@ -14,7 +14,6 @@ class Navbar extends React.Component {
 
   handleAddToMovies = (movie) => {
     // adding search movie to the movie list
-    console.log(movie)
     this.props.dispatch(addSearchedMovieToList(movie));
   };
 
@@ -43,21 +42,19 @@ class Navbar extends React.Component {
 
           {showSearchResults && (
             <div className="search-results">
-              {searchResult.map((searchResult) => {
-                return (
-                  <div className="search-result">
-                    <img src={searchResult.Poster} alt="search-pic" />
-                    <div className="movie-info">
-                      <span>{searchResult.Title}</span>
-                      <button
-                        onClick={() => this.handleAddToMovies(searchResult)}
-                      >
-                        Add to Movies
-                      </button>
-                    </div>
+              {searchResult.map((searchResult, index) => (
+                <div className="search-result" key={index}>
+                  <img src={searchResult.Poster} alt="search-pic" />
+                  <div className="movie-info">
+                    <span>{searchResult.Title}</span>
+                    <button
+                      onClick={() => this.handleAddToMovies(searchResult)}
+                    >
+                      Add to Movies
+                    </button>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           )}
         </div>

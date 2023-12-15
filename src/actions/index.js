@@ -65,7 +65,6 @@ export function handleMovieSearch(searchText) {
     fetch(url)
       .then((response) => response.json())
       .then((movie) => {
-        console.log(movie.Search);
         // dispatch action to save search results in store
         dispatch(addMovieToSearchResult(movie.Search));
       });
