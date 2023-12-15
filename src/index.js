@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { Tuple, configureStore } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
@@ -6,26 +6,27 @@ import { thunk } from "redux-thunk";
 import "./Assets/Styles/index.css";
 import App from "./Components/App";
 import reducer from "./reducers/index";
+import { Provider } from "react-redux";
 
-const logger = (store) => (next) => (action) => {
-  if (typeof action !== "function") {
-    console.log("ACTION_TYPE = ", action.type, store);
-  }
-  next(action);
-};
-
+// Store
 const store = configureStore({
   reducer,
-  middleware: () => new Tuple(logger, thunk),
+  middleware: () => new Tuple(/*logger,*/ thunk),
 });
-
-export const storeContext = createContext();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-  <storeContext.Provider value={store}>
+  <Provider store={store}>
     <App />
-  </storeContext.Provider>
+  </Provider>
   // </React.StrictMode>
 );
+
+// Middleware
+// const logger = (store) => (next) => (action) => {
+//   if (typeof action !== "function") {
+//     console.log("ACTION_TYPE = ", action.type, store);
+//   }
+//   next(action);
+// };

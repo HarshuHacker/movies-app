@@ -1,43 +1,40 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
 import {
-  ADD_MOVIES,
-  ADD_FAVOURITE,
-  REMOVE_FAVOURITE,
+  ADD_DEFAULT_MOVIES,
+  ADD_TO_FAVOURITE,
+  REMOVE_FROM_FAVOURITE,
   SHOW_FAVOURITES,
-  ADD_SEARCH_RESULT,
-  ADD_MOVIE_TO_LIST,
+  ADD_SEARCHED_MOVIE_TO_LIST,
+  ADD_MOVIE_TO_SEARCH_RESULT,
 } from "../actions";
 
+// Initial Movie State
 const initialMoviesState = {
-  list: [],
-  favourites: [],
-  showFavourites: false,
+  list: [], // List Of Movies
+  favourites: [], // List Of Favourite Movies
+  showFavourites: false, // Whether To Show All Movies Or Favourite Movies Only
 };
 
-const initialSearchState = {
-  searchResult: {},
-  showSearchResults: false,
-};
-
-// const initialRootState = {
-//   movies: initialMoviesState,
-//   search: initialSearchState,
-// };
-
+// Reducers For Movies
 export function movies(state = initialMoviesState, action) {
   switch (action.type) {
-    case ADD_MOVIES:
+    // Add Movies
+    case ADD_DEFAULT_MOVIES:
       return {
         ...state,
         list: action.movies,
       };
-    case ADD_FAVOURITE:
+
+    // Add Movie To Favourites
+    case ADD_TO_FAVOURITE:
       return {
         ...state,
         favourites: [...state.favourites, action.movie],
       };
-    case REMOVE_FAVOURITE:
+
+    // Remove Movie To Favourites
+    case REMOVE_FROM_FAVOURITE:
       const newFavourites = state.favourites.filter(
         (movie) => movie.Title !== action.movie.Title
       );
@@ -45,46 +42,54 @@ export function movies(state = initialMoviesState, action) {
         ...state,
         favourites: newFavourites,
       };
+
+    // Toggle To Show Favourites Or Not
     case SHOW_FAVOURITES:
       return {
         ...state,
         showFavourites: action.val,
       };
-    case ADD_MOVIE_TO_LIST:
+
+    // Add Searched Movie To The Movies List
+    case ADD_SEARCHED_MOVIE_TO_LIST:
       return {
         ...state,
         list: [action.movie, ...state.list],
       };
+
     default:
       return state;
   }
 }
+
+// Initial Search State
+const initialSearchState = {
+  searchResult: {},
+  showSearchResults: false,
+};
 
 export function search(state = initialSearchState, action) {
   switch (action.type) {
-    case ADD_SEARCH_RESULT:
+    // Show Searched Movie
+    case ADD_SEARCHED_MOVIE_TO_LIST:
       return {
         ...state,
-        searchResult: action.movie,
-        showSearchResults: true,
+        showSearchResults: false, // Whether To Show Search Reults Or Not
       };
-    case ADD_MOVIE_TO_LIST:
+
+    // Add Searched Movie To The Movies List
+    case ADD_MOVIE_TO_SEARCH_RESULT:
       return {
         ...state,
-        showSearchResults: false,
+        searchResult: action.movie, // The Search Movie
+        showSearchResults: true, // Whether To Show Search Reults Or Not
       };
     default:
       return state;
   }
 }
 
-// export default function rootReducer(state = initialRootState, action) {
-//   return {
-//     movies: movies(state.movies, action),
-//     search: search(state.search, action),
-//   };
-// }
-
+// Combining The Movies And Search Reducer Into A Single Reducer
 export default combineReducers({
   movies,
   search,

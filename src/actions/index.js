@@ -1,33 +1,38 @@
 // action types
-export const ADD_MOVIES = "ADD_MOVIES";
-export const ADD_FAVOURITE = "ADD_FAVOURITE";
-export const REMOVE_FAVOURITE = "REMOVE_FAVOURITE";
+export const ADD_DEFAULT_MOVIES = "ADD_DEFAULT_MOVIES";
+export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
+export const REMOVE_FROM_FAVOURITE = "REMOVE_FROM_FAVOURITE";
 export const SHOW_FAVOURITES = "SHOW_FAVOURITES";
-export const ADD_MOVIE_TO_LIST = "ADD_MOVIE_TO_LIST";
-export const ADD_SEARCH_RESULT = "ADD_SEARCH_RESULT";
+export const ADD_SEARCHED_MOVIE_TO_LIST = "ADD_SEARCHED_MOVIE_TO_LIST";
+export const ADD_MOVIE_TO_SEARCH_RESULT = "ADD_MOVIE_TO_SEARCH_RESULT";
 
 // action creators
-export function addMovies(movies) {
+
+// Add Movies
+export function addDefaultMovies(movies) {
   return {
-    type: ADD_MOVIES,
+    type: ADD_DEFAULT_MOVIES,
     movies,
   };
 }
 
-export function addFavorite(movie) {
+// Add Movie To Favourites
+export function addToFavorite(movie) {
   return {
-    type: ADD_FAVOURITE,
+    type: ADD_TO_FAVOURITE,
     movie,
   };
 }
 
-export function removeFavourite(movie) {
+// Remove Movie To Favourites
+export function removeFromFavourite(movie) {
   return {
-    type: REMOVE_FAVOURITE,
+    type: REMOVE_FROM_FAVOURITE,
     movie,
   };
 }
 
+// Toggle To Show Favourites Or Not
 export function showFavourite(val) {
   return {
     type: SHOW_FAVOURITES,
@@ -35,17 +40,18 @@ export function showFavourite(val) {
   };
 }
 
-export function addMovieToList(movie) {
+// Add Searched Movie To The Movies List
+export function addSearchedMovieToList(movie) {
   return {
-    type: ADD_MOVIE_TO_LIST,
+    type: ADD_SEARCHED_MOVIE_TO_LIST,
     movie,
   };
 }
 
-// For Adding Searched Movie To The Movies List
-export function addMovieSearchResult(movie) {
+// Show Searched Movie
+export function addMovieToSearchResult(movie) {
   return {
-    type: ADD_SEARCH_RESULT,
+    type: ADD_MOVIE_TO_SEARCH_RESULT,
     movie,
   };
 }
@@ -60,7 +66,7 @@ export function handleMovieSearch(searchText) {
       .then((response) => response.json())
       .then((movie) => {
         // dispatch action to save search results in store
-        dispatch(addMovieSearchResult(movie));
+        dispatch(addMovieToSearchResult(movie));
       });
   };
 }

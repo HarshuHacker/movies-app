@@ -1,16 +1,20 @@
 import React from "react";
-import { addFavorite, removeFavourite } from "../actions";
-import { storeContext } from "../index";
+import { addToFavorite, removeFromFavourite } from "../actions";
+import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeartCrack, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 class MovieCard extends React.Component {
   handleFavouriteClick = () => {
+    // when fav button is clicked
     const { movie } = this.props;
-    this.props.dispatch(addFavorite(movie));
+    this.props.dispatch(addToFavorite(movie));
   };
 
   handleUnFavouriteClick = () => {
+    // when unfav button is clicked
     const { movie } = this.props;
-    this.props.dispatch(removeFavourite(movie));
+    this.props.dispatch(removeFromFavourite(movie));
   };
 
   render() {
@@ -30,14 +34,14 @@ class MovieCard extends React.Component {
                 className="unfavourite-btn"
                 onClick={this.handleUnFavouriteClick}
               >
-                Unfavourite
+                Unfavourite <FontAwesomeIcon icon={faHeartCrack} />
               </button>
             ) : (
               <button
                 className="favourite-btn"
                 onClick={this.handleFavouriteClick}
               >
-                Favourite
+                Favourite <FontAwesomeIcon icon={faHeart} />
               </button>
             )}
           </div>
@@ -47,23 +51,11 @@ class MovieCard extends React.Component {
   }
 }
 
-class MovieCardWrapper extends React.Component {
-  render() {
-    return (
-      <storeContext.Consumer>
-        {(store) => {
-          return (
-            <MovieCard
-              store={store}
-              movie={this.props.movie}
-              dispatch={store.dispatch}
-              isFavourite={this.props.isFavourite}
-            />
-          );
-        }}
-      </storeContext.Consumer>
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    movies: state.movies,
+    search: state.search,
+  };
 }
 
-export default MovieCardWrapper;
+export default connect(mapStateToProps)(MovieCard);

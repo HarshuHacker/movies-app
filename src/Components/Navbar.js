@@ -1,25 +1,30 @@
 import React from "react";
-import { addMovieToList, handleMovieSearch } from "../actions";
-import { storeContext } from "../index";
+import { addSearchedMovieToList, handleMovieSearch } from "../actions";
+import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: "",
+      searchText: "", // default text in search tab
     };
   }
 
   handleAddToMovies = (movie) => {
-    this.props.dispatch(addMovieToList(movie));
+    // adding search movie to the movie list
+    this.props.dispatch(addSearchedMovieToList(movie));
   };
 
   handleSearchClick = () => {
+    // when search button is clicked
     const { searchText } = this.state;
     this.props.dispatch(handleMovieSearch(searchText));
   };
 
   handleSearchChange = (e) => {
+    // when input is given is search tab
     this.setState({
       searchText: e.target.value,
     });
@@ -30,9 +35,9 @@ class Navbar extends React.Component {
     return (
       <div className="nav">
         <div className="search-container">
-          <input onChange={this.handleSearchChange} />
+          <input onChange={this.handleSearchChange} placeholder="Search" />
           <button id="search-btn" onClick={this.handleSearchClick}>
-            Search
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
 
           {showSearchResults && (
@@ -54,20 +59,11 @@ class Navbar extends React.Component {
   }
 }
 
-class NavbarWrapper extends React.Component {
-  render() {
-    return (
-      <storeContext.Consumer>
-        {(store) => (
-          <Navbar
-            store={store}
-            dispatch={store.dispatch}
-            search={this.props.search}
-          />
-        )}
-      </storeContext.Consumer>
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    movies: state.movies,
+    search: state.search,
+  };
 }
 
-export default NavbarWrapper;
+export default connect(mapStateToProps)(Navbar);
